@@ -125,7 +125,13 @@ body {
 /* Layout */
 .layout {
   display: grid;
-  grid-template-columns: 280px 360px 1fr;
+
+  /* Make tags sidebar narrower and give the editor more room.
+     - Sidebar: fixed but smaller
+     - List: slightly slimmer
+     - Editor: gets the remaining space */
+  grid-template-columns: 220px 320px 1fr;
+
   gap: 16px;
   padding: 18px;
   width: 100%;
@@ -451,7 +457,8 @@ body {
 /* Responsive */
 @media (max-width: 1180px) {
   .layout {
-    grid-template-columns: 260px 1fr;
+    /* Narrower sidebar at medium widths; editor/list share the main column */
+    grid-template-columns: 220px 1fr;
     grid-template-rows: 1fr 1fr;
     height: auto;
     min-height: 0;
