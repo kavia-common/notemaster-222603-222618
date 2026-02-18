@@ -308,7 +308,16 @@ function App() {
                     {n.is_favorite ? <span className="badge badge-accent">FAV</span> : null}
                   </div>
                 </div>
-                <div className="note-preview">{(n.content || '').slice(0, 80) || 'No content yet.'}</div>
+                <div className="note-preview">
+                  {(() => {
+                    // Compact preview snippet:
+                    // - collapse whitespace/newlines from markdown body
+                    // - keep dense layout by clamping to 2 lines in CSS
+                    const raw = n.content || '';
+                    const normalized = raw.replace(/\s+/g, ' ').trim();
+                    return normalized.slice(0, 160) || 'No content yet.';
+                  })()}
+                </div>
                 <div className="note-tags">
                   {(n.tags || []).slice(0, 3).map(t => (
                     <span key={t} className="tag-pill">
