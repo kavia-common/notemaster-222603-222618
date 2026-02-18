@@ -329,16 +329,44 @@ body {
   padding: 6px 8px;
 
   cursor: pointer;
+
+  /* Keep compact retro "card" feel, but allow active state to stand out more. */
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+  transition: transform 0.06s ease, box-shadow 0.06s ease, background 0.12s ease, border-color 0.12s ease;
 }
 
 .note-item:hover {
   transform: translateY(-1px);
 }
 
-.note-item-active {
+/* Keyboard accessibility: show a clear focus ring without changing layout density. */
+.note-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.22), 0 6px 0 rgba(0, 0, 0, 0.08);
   border-color: rgba(59, 130, 246, 0.55);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(34, 211, 238, 0.11)), var(--surface-2);
+}
+
+/* Stronger selected/active row:
+   - higher-contrast background
+   - clearer border
+   - subtle "glow" ring to separate from neighbors without adding spacing */
+.note-item-active {
+  border-color: rgba(59, 130, 246, 0.95);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.28), rgba(34, 211, 238, 0.18)), var(--surface-2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16), 0 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.note-item-active:hover {
+  transform: translateY(-1px);
+}
+
+/* Ensure content inside the selected row reads clearly. */
+.note-item-active .note-preview {
+  color: rgba(26, 26, 26, 0.78);
+}
+
+[data-theme="dark"] .note-item-active .note-preview {
+  color: rgba(244, 243, 255, 0.74);
 }
 
 .note-item-row {
